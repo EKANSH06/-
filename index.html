@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>For Juhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one calm column, a night sky that turns to morning in light mode.
+   Quiet sections stacked slowly. The only bold moment is the breathing circle. */
+:root {
+  --bg: #eeeaf6;
+  --surface: #ffffff;
+  --surface-2: #e6e1f1;
+  --fg: #1e2340;
+  --muted: #5d6384;
+  --line: #d3cde4;
+  --accent: #a4561f;
+  --accent-soft: #f3dcc6;
+  --rose: #b0415f;
+  --glow: rgba(164, 86, 31, 0.18);
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111727; --surface: #1a2236; --surface-2: #222b44; --fg: #ebe8f5; --muted: #a0a8c4;
+    --line: #2f3a5a; --accent: #f1c27d; --accent-soft: #3a3046; --rose: #ec9db3; --glow: rgba(241, 194, 125, 0.22);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111727; --surface: #1a2236; --surface-2: #222b44; --fg: #ebe8f5; --muted: #a0a8c4;
+  --line: #2f3a5a; --accent: #f1c27d; --accent-soft: #3a3046; --rose: #ec9db3; --glow: rgba(241, 194, 125, 0.22);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--body); font-size: 17px; line-height: 1.65;
+  margin: 0;
+  padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 72px; }
+section { min-width: 0; }
+h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.1; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(3rem, 12vw, 4.75rem); letter-spacing: -0.01em; }
+h1 em { color: var(--accent); font-style: italic; }
+h2 { font-size: clamp(1.9rem, 6vw, 2.4rem); }
+p { margin: 0; }
+.label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.lede { color: var(--muted); max-width: 52ch; }
+.head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* Hero */
+.hero { display: flex; flex-direction: column; gap: 22px; }
+.hero .lede { font-size: 1.1rem; }
+.clocks { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+.clock { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; min-width: 0; }
+.clock .time { font-family: var(--display); font-size: 2.3rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.clock .where { color: var(--muted); font-size: 0.9rem; }
+.gap-note { color: var(--muted); font-size: 0.92rem; }
+
+/* Breathing */
+.breath { display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center; }
+.orb-wrap { width: min(280px, 72vw); aspect-ratio: 1; max-width: 100%; display: grid; place-items: center; position: relative; }
+.orb {
+  width: 100%; height: 100%; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--accent), var(--rose));
+  opacity: 0.9;
+  transform: scale(0.55);
+  transition: transform 4s ease-in-out;
+  box-shadow: 0 0 80px 10px var(--glow);
+}
+.orb.in { transform: scale(1); transition-duration: 4s; }
+.orb.out { transform: scale(0.55); transition-duration: 6s; }
+.orb-text { position: absolute; font-family: var(--display); font-size: 1.7rem; color: #1b1630; pointer-events: none; }
+button { font: inherit; cursor: pointer; }
+.btn {
+  background: var(--fg); color: var(--bg); border: 0; border-radius: 999px;
+  padding: 12px 28px; font-weight: 600; min-height: 46px;
+}
+.btn:hover { opacity: 0.88; }
+.btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+.hint { color: var(--muted); font-size: 0.92rem; min-height: 1.5em; }
+
+/* Open when letters */
+.letters { display: flex; flex-direction: column; gap: 10px; }
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+summary {
+  list-style: none; cursor: pointer; padding: 18px 20px; display: flex; justify-content: space-between;
+  align-items: center; gap: 12px; min-height: 56px;
+}
+summary::-webkit-details-marker { display: none; }
+summary .open-when { font-family: var(--display); font-size: 1.45rem; line-height: 1.2; }
+summary .open-when span { color: var(--accent); font-style: italic; }
+summary .chev { color: var(--muted); transition: transform 0.25s ease; flex: none; font-size: 1.1rem; }
+details[open] summary .chev { transform: rotate(180deg); }
+details[open] { background: var(--surface-2); }
+.note { padding: 2px 20px 22px; display: flex; flex-direction: column; gap: 14px; max-width: 54ch; }
+.note p { color: var(--fg); }
+.sign { font-family: var(--display); font-style: italic; font-size: 1.35rem; color: var(--rose); }
+
+/* Rest slip */
+.slip {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  padding: 26px 22px 24px; position: relative; overflow: hidden;
+  display: flex; flex-direction: column; gap: 18px;
+}
+.slip .dept { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; border-bottom: 1px dashed var(--line); padding-bottom: 12px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.slip h3 { font-family: var(--display); font-weight: 400; font-size: 1.7rem; margin: 0; line-height: 1.15; }
+.excuses { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.excuses label { display: flex; align-items: flex-start; gap: 12px; padding: 8px 4px; cursor: pointer; min-height: 44px; }
+.excuses input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+.excuses input:checked + span { text-decoration: line-through; text-decoration-color: var(--accent); color: var(--muted); }
+.grant-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; min-height: 76px; }
+.stamp {
+  font-family: var(--display); font-size: 1.9rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rose); border: 3px solid var(--rose); border-radius: 8px; padding: 4px 16px;
+  transform: rotate(-6deg); opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.stamp.on { opacity: 0.9; transform: rotate(-4deg); }
+.stamp-note { color: var(--muted); font-size: 0.9rem; }
+
+/* Sure things */
+.sure { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.sure li { padding: 16px 0; border-top: 1px solid var(--line); font-family: var(--display); font-size: 1.45rem; line-height: 1.3; }
+.sure li:last-child { border-bottom: 1px solid var(--line); }
+
+footer { display: flex; flex-direction: column; gap: 14px; }
+footer .big { font-family: var(--display); font-size: clamp(1.9rem, 7vw, 2.6rem); line-height: 1.15; text-wrap: balance; }
+footer .big em { color: var(--accent); }
+
+@media (max-width: 420px) {
+  .clocks { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orb, .orb.in, .orb.out, .stamp, summary .chev { transition-duration: 0.01s !important; }
+}
+:root { color-scheme: light; }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <p class="label">A page with nothing to do on it</p>
+    <h1>Hi, <em>Juhi.</em></h1>
+    <p class="lede">I built this so you have one quiet corner of the internet that is only about you being okay. Nothing here needs a reply. Stay for a minute or stay for an hour.</p>
+    <div class="clocks" aria-label="Current time in both places">
+      <div class="clock"><div class="time" id="t-her">--:--</div><div class="where">You, in India</div></div>
+      <div class="clock"><div class="time" id="t-me">--:--</div><div class="where">Me, in Markham</div></div>
+    </div>
+    <p class="gap-note" id="gap-note"></p>
+  </section>
+
+  <section>
+    <div class="head">
+      <p class="label">Take a minute</p>
+      <h2>Breathe with me</h2>
+      <p class="lede">Breathe in for four seconds, out for six. Follow the circle. Three or four rounds is plenty.</p>
+    </div>
+    <div class="breath">
+      <div class="orb-wrap">
+        <div class="orb" id="orb"></div>
+        <div class="orb-text" id="orb-text">Ready</div>
+      </div>
+      <button class="btn" id="breath-btn" type="button">Start</button>
+      <p class="hint" id="breath-hint" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <p class="label">Letters, sealed until you need them</p>
+      <h2>Open when…</h2>
+      <p class="lede">Tap the one that matches today.</p>
+    </div>
+    <div class="letters">
+      <details>
+        <summary><span class="open-when">Open when you're <span>tired</span></span><span class="chev" aria-hidden="true">⌄</span></summary>
+        <div class="note">
+          <p>You have been carrying a lot, and you carry it quietly, so most people never see how heavy it is. I see it. Put it down for tonight.</p>
+          <p>Whatever is waiting in your inbox will still be there tomorrow, and it is almost certainly smaller than it feels right now. Drink some water. Have a cold coffee if you want one. Lie down for a bit.</p>
+          <p>I am proud of you on the days you finish everything and on the days you finish nothing.</p>
+          <p class="sign">Ekansh</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="open-when">Open when you <span>miss me</span></span><span class="chev" aria-hidden="true">⌄</span></summary>
+        <div class="note">
+          <p>Same. The time difference is annoying and the distance is annoying, and I am not going to pretend otherwise.</p>
+          <p>What I can tell you is that nothing about how I feel moved when I did. I think about you at odd hours, in the middle of meetings, in the grocery aisle. You are with me in all of those places.</p>
+          <p>Send me a voice note about something small. A boring part of your day is my favourite part of mine.</p>
+          <p class="sign">Ekansh</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="open-when">Open when work is <span>too much</span></span><span class="chev" aria-hidden="true">⌄</span></summary>
+        <div class="note">
+          <p>You study history, so you already know this: most things that felt urgent at the time turned out to be footnotes.</p>
+          <p>Pick the one thing that truly has to happen tomorrow and write it down. Everything else can wait in line. Asking for a lighter week, or taking a day off, is a normal thing people do, and you are allowed to be one of those people.</p>
+          <p>Your work does not get to decide how much you are worth. You are worth a lot, and that was settled before any job.</p>
+          <p class="sign">Ekansh</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="open-when">Open when you <span>can't sleep</span></span><span class="chev" aria-hidden="true">⌄</span></summary>
+        <div class="note">
+          <p>Try the breathing circle first. Then pick a place you love and walk through it slowly in your head, one room or one street at a time.</p>
+          <p>If your mind keeps listing tomorrow's tasks, tell it they are already written down and it can stop holding them. It is late where you are and I am probably awake somewhere on the same planet, thinking about you.</p>
+          <p class="sign">Ekansh</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="open-when">Open when you <span>doubt yourself</span></span><span class="chev" aria-hidden="true">⌄</span></summary>
+        <div class="note">
+          <p>The voice telling you that you are behind, or not enough, is a bad narrator. It gets the facts wrong.</p>
+          <p>The facts are that you are sharp, you are kind, and you notice what other people miss. You keep going even when you are worn out. I have watched you do it, and I think it is remarkable.</p>
+          <p class="sign">Ekansh</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <p class="label">Issued by the Department of Rest</p>
+      <h2>A permission slip</h2>
+    </div>
+    <div class="slip">
+      <div class="dept"><span>Form R-1 · Leave of obligation</span><span id="slip-date"></span></div>
+      <h3>Juhi is excused from the following, effective tonight.</h3>
+      <ul class="excuses">
+        <li><label><input type="checkbox" class="ex"><span>Replying to messages that are not from me</span></label></li>
+        <li><label><input type="checkbox" class="ex"><span>Being productive in the evening</span></label></li>
+        <li><label><input type="checkbox" class="ex"><span>Cooking something proper</span></label></li>
+        <li><label><input type="checkbox" class="ex"><span>Explaining why she is tired</span></label></li>
+        <li><label><input type="checkbox" class="ex"><span>Feeling guilty about any of the above</span></label></li>
+      </ul>
+      <div class="grant-row">
+        <button class="btn" id="grant" type="button">Grant leave</button>
+        <div class="stamp" id="stamp" aria-live="polite">Granted</div>
+      </div>
+      <p class="stamp-note" id="stamp-note"></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <p class="label">For the record</p>
+      <h2>Things I'm sure about</h2>
+    </div>
+    <ul class="sure">
+      <li>You make ordinary days feel like they have a plot.</li>
+      <li>You are the first person I want to tell things to.</li>
+      <li>You look after everyone around you, and you deserve the same.</li>
+      <li>Two weeks apart has not changed anything that matters.</li>
+      <li>I will see you soon, and I am counting.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p class="big">Rest well. I'm <em>on your side</em>, from Markham to wherever you're reading this.</p>
+    <p class="lede">Come back to this page whenever you like. It stays here for you.</p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  function fmt(tz) {
+    return new Intl.DateTimeFormat([], { hour: "numeric", minute: "2-digit", timeZone: tz }).format(new Date());
+  }
+  function offsetMinutes(tz) {
+    var parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: tz, hourCycle: "h23", year: "numeric", month: "numeric", day: "numeric",
+      hour: "numeric", minute: "numeric", second: "numeric"
+    }).formatToParts(new Date());
+    var o = {};
+    parts.forEach(function (p) { o[p.type] = +p.value; });
+    var asUTC = Date.UTC(o.year, o.month - 1, o.day, o.hour, o.minute, o.second);
+    return Math.round((asUTC - Math.floor(Date.now() / 1000) * 1000) / 60000);
+  }
+  function tick() {
+    document.getElementById("t-her").textContent = fmt("Asia/Kolkata");
+    document.getElementById("t-me").textContent = fmt("America/Toronto");
+    var diff = offsetMinutes("Asia/Kolkata") - offsetMinutes("America/Toronto");
+    var h = Math.floor(diff / 60), m = diff % 60;
+    var txt = h + (m ? " and a half" : "") + " hours";
+    document.getElementById("gap-note").textContent = "You are " + txt + " ahead of me right now. Whatever time it is for you, I'm thinking of you.";
+  }
+  tick();
+  setInterval(tick, 15000);
+
+  // Breathing: 4s in, 6s out
+  var orb = document.getElementById("orb");
+  var orbText = document.getElementById("orb-text");
+  var btn = document.getElementById("breath-btn");
+  var hint = document.getElementById("breath-hint");
+  var running = false, timer = null, rounds = 0;
+  function inhale() {
+    if (!running) return;
+    orb.className = "orb in"; orbText.textContent = "Breathe in";
+    timer = setTimeout(exhale, 4000);
+  }
+  function exhale() {
+    if (!running) return;
+    orb.className = "orb out"; orbText.textContent = "Slowly out";
+    timer = setTimeout(function () {
+      rounds += 1;
+      hint.textContent = rounds + (rounds === 1 ? " round done" : " rounds done");
+      inhale();
+    }, 6000);
+  }
+  btn.addEventListener("click", function () {
+    if (running) {
+      running = false; clearTimeout(timer);
+      orb.className = "orb"; orbText.textContent = "Ready";
+      btn.textContent = "Start again";
+      hint.textContent = rounds ? "Well done. " + rounds + (rounds === 1 ? " round." : " rounds.") : "";
+    } else {
+      running = true; rounds = 0; hint.textContent = "";
+      btn.textContent = "Stop";
+      inhale();
+    }
+  });
+
+  // Rest slip
+  var dateStr = new Intl.DateTimeFormat([], { year: "numeric", month: "long", day: "numeric" }).format(new Date());
+  document.getElementById("slip-date").textContent = dateStr;
+  var stamp = document.getElementById("stamp");
+  var note = document.getElementById("stamp-note");
+  document.getElementById("grant").addEventListener("click", function () {
+    var boxes = document.querySelectorAll(".ex");
+    var ticked = Array.prototype.filter.call(boxes, function (b) { return b.checked; }).length;
+    if (!ticked) {
+      boxes.forEach(function (b) { b.checked = true; });
+      ticked = boxes.length;
+    }
+    stamp.classList.add("on");
+    note.textContent = ticked + " of " + boxes.length + " obligations waived. Signed, Ekansh, Department of Rest.";
+  });
+})();
+</script>
+</body>
+</html>
